@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Project 5</title>
+    <link rel="stylesheet" type="text/css" href="Project5.css">
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th colspan="3"> <h1>Rock Paper Scissors</h1> </th> <!--all cells merged together with score in it-->
+        </tr>
+        <tr>
+            <td onclick="hit(1)"><img id ="picRock" src="rock.jpg" /></td>
+            <td rowspan="3"><img id ="picHand" src="leftPaperHand.jpg" /></td>
+            <td rowspan="3"><img id ="picComp" src="rightRockHand.jpg" /></td>
+        </tr>
+        <tr>
+            <td onclick="hit(2)"><img id="picPaper" src="paper.jpg" /></td>
+        </tr>
+        <tr>
+            <td onclick="hit(3)"><img id="picScissors" src="scissors.jpg" /></td> 
+        </tr>
+        <tr>
+            <td colspan="3"><h1 id="scores"> Wins: <span id="win">0</span> Losses: <span id="loss">0 </span> Ties: <span id="tie">0</span></h1> </td> <!--all cells merged together with score in it-->
+        </tr>
+        <tr>
+            <td colspan="3"><h2 id="bottomrow"> Rounds Played: <span id="rounds">0</span></h2> </td> <!--row that displays how many rounds played-->
+        </tr>
+    </table>
+    <script>
+        var lossCount = 0; //variable that determines number of losses
+        var winCount = 0; //variable that determines number of wins
+        var tieCount = 0; //variable that determines number of ties
+        var roundCount = 0; //variable that determines number of rounds played
+        //Should Add Global variables
+    
+        var computerHand //global variable of computer decision
+        var picture //global variable of user's decision
+        function computerPlaying() { //function for getting computer's hand
+            computerHand= Math.floor(Math.random()*3) +1; //math operator that determines random number
+            if (computerHand==1) { //decision making 1
+                picComp.src= "rightRockHand.jpg";
+            }
+            else if (computerHand==2) { //decision making 2
+                picComp.src= "rightPaperHand.jpg";
+            }
+            else{ //decision making 3
+                picComp.src= "rightScissorHand.jpg"; 
+            }
+            return computerHand;
+        }
+        
+        function hit(picture) { //function for getting user's hand
+            if (picture==1) { //decision making 1
+                picHand.src="leftRockHand.jpg";
+            }
+            else if (picture==2) { //decision making 2
+                picHand.src="leftPaperHand.jpg";
+            }
+            else { //decision making 3
+                picHand.src="leftScissorHand.jpg";
+            }
+            var computerChoice=computerPlaying(); //calling computer function
+            Score(computerHand, picture); //calling the score function
+            roundCount++; //updates rounds played counter
+            rounds.innerHTML=roundCount; //updates the text
+        }
+        
+        function Score(computerHand, picture) { //function for finding score of the game
+            if (computerHand == picture) { //decision making for ties
+               tieCount++;
+               tie.innerHTML=tieCount;   
+            } 
+            else if (computerHand==1 && picture==2) { //decision making for rock vs. paper
+               winCount++;
+               win.innerHTML=winCount;
+            }
+            else if (computerHand==1 && picture==3) { //decision making for rock vs. scissors
+                lossCount++;
+                loss.innerHTML=lossCount;
+            }
+            else if (computerHand==2 && picture==1) { //decision making for paper vs. rock
+                lossCount++;
+                loss.innerHTML=lossCount;
+            }
+            else if (computerHand==2 && picture==3) { //decision making for paper vs. scissors
+                winCount++;
+                win.innerHTML=winCount;
+            }
+            else if (computerHand==3 && picture==1) { //decision making for scissors vs. rock
+                winCount++;
+                win.innerHTML=winCount;
+            }
+            else if (computerHand==3 && picture==2) { //decision making for scissors vs. paper
+                lossCount++;
+                loss.innerHTML=lossCount;
+            }
+        }  
+    </script>
+</body>
+</html> 
